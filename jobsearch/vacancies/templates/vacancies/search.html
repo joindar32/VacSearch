@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vacancy Search</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .vacancy {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #e3e3e3;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Vacancy Search</h1>
+        <form method="get" class="mb-4">
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    {{ form.keyword.label_tag }}
+                    {{ form.keyword }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    {{ form.area.label_tag }}
+                    {{ form.area }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    {{ form.per_page.label_tag }}
+                    {{ form.per_page }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <h2>Results</h2>
+        <div class="vacancy-list">
+            {% for vacancy in vacancies %}
+                <div class="vacancy">
+                    <h4><a href="{% url 'vacancy_detail' vacancy.id %}">{{ vacancy.name }}</a></h4>
+                    <p><strong>Requirements:</strong> {{ vacancy.snippet.requirement|safe }}</p>
+                    <p><strong>Responsibilities:</strong> {{ vacancy.snippet.responsibility|safe }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

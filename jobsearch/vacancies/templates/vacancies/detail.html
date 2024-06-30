@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vacancy Detail</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">{{ vacancy.name }}</h1>
+        <p><strong>Company:</strong> <a href="{{ vacancy.employer.alternate_url }}" target="_blank">{{ vacancy.employer.name }}</a></p>
+        <p><strong>Published at:</strong> {{ vacancy.published_at }}</p>
+        <p><strong>Area:</strong> {{ vacancy.area.name }}</p>
+        <p><strong>Salary:</strong> {{ vacancy.salary.from }} - {{ vacancy.salary.to }} {{ vacancy.salary.currency }}</p>
+        <p><strong>Requirements:</strong></p>
+        <p>{{ vacancy.snippet.requirement|safe }}</p>
+        <p><strong>Responsibilities:</strong></p>
+        <p>{{ vacancy.snippet.responsibility|safe }}</p>
+        <p><strong>Experience:</strong> {{ vacancy.experience.name }}</p>
+        <p><strong>Employment:</strong> {{ vacancy.employment.name }}</p>
+        <p><strong>Schedule:</strong> {{ vacancy.schedule.name }}</p>
+        <a href="{{ vacancy.alternate_url }}" class="btn btn-primary" target="_blank">Apply Now</a>
+
+        <!-- Display requirements -->
+        <div>
+            <h2>Requirements:</h2>
+            <ul>
+                {% for requirement in vacancy_description %}
+                    {% if requirement %}
+                        <li>{{ requirement|safe }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Display responsibilities -->
+        <div>
+            <h2>Responsibilities:</h2>
+            <ul>
+                {% for responsibility in vacancy_description %}
+                    {% if responsibility %}
+                        <li>{{ responsibility|safe }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
