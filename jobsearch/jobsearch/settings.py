@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,16 +75,21 @@ WSGI_APPLICATION = 'jobsearch.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# settings.py
+
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hhdb',
-        'USER': 'postgres',
-        'PASSWORD': 'c_j107356',
-        'HOST': 'localhost',
+        'NAME': os.getenv('DB_NAME', 'hhdb'),
+        'USER': os.getenv('DB_USER', 'postgres'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'c_j107356'),
+        'HOST': os.getenv('DB_HOST', 'db'),
         'PORT': '5432',
     }
 }
+
 
 
 # Password validation

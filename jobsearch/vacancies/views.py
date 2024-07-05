@@ -78,6 +78,7 @@ def search_vacancies(request):
 
 
 
+
 def vacancy_detail(request, vacancy_id):
     vacancy = get_object_or_404(Vacancy, id=vacancy_id)
     vacancy_description = vacancy.description.split('<li>') if vacancy.description else []

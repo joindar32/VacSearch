@@ -1,18 +1,6 @@
-version: '3'
+version: '3.9'
 
 services:
-  db:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: hhdb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: c_j107356
-    networks:
-      - jobsearch_default
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -20,17 +8,12 @@ services:
       - .:/app
     ports:
       - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres
     environment:
-      DJANGO_SETTINGS_MODULE: jobsearch.settings
-      DJANGO_SECRET_KEY: your_secret_key
-      DJANGO_DEBUG: 'True'
-      DJANGO_ALLOWED_HOSTS: 'localhost,127.0.0.1'
-    networks:
-      - jobsearch_default
-
-volumes:
-  postgres_data:
-
-networks:
-  jobsearch_default:
-    driver: bridge
+      POSTGRES_DB: hhdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: c_j107356
