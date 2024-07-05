@@ -3,6 +3,7 @@ from .forms import VacancyFilterForm
 from .models import Vacancy
 import requests
 from datetime import datetime, timedelta
+from django.shortcuts import render, get_object_or_404
 
 
 def search_vacancies(request):
@@ -78,6 +79,6 @@ def search_vacancies(request):
 
 
 def vacancy_detail(request, vacancy_id):
-    vacancy = Vacancy.objects.get(id=vacancy_id)
-    vacancy_description = vacancy.description.split('<li>')  # Split the description here
+    vacancy = get_object_or_404(Vacancy, id=vacancy_id)
+    vacancy_description = vacancy.description.split('<li>') if vacancy.description else []
     return render(request, 'vacancies/detail.html', {'vacancy': vacancy, 'vacancy_description': vacancy_description})

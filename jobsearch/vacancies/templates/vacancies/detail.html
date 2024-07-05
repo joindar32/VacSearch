@@ -6,18 +6,30 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="my-4">{{ vacancy.name }}</h1>
-        <p><strong>Company:</strong> <a href="{{ vacancy.employer.alternate_url }}" target="_blank">{{ vacancy.employer.name }}</a></p>
-        <p><strong>Published at:</strong> {{ vacancy.published_at }}</p>
-        <p><strong>Area:</strong> {{ vacancy.area.name }}</p>
-        <p><strong>Salary:</strong> {{ vacancy.salary.from }} - {{ vacancy.salary.to }} {{ vacancy.salary.currency }}</p>
+        <h1 class="my-4">{{ vacancy.name|default:"No name available" }}</h1>
+        <p><strong>Company:</strong>
+            {% if vacancy.employer %}
+                <a href="{{ vacancy.employer.alternate_url }}" target="_blank">{{ vacancy.employer.name|default:"No employer available" }}</a>
+            {% else %}
+                No employer available
+            {% endif %}
+        </p>
+        <p><strong>Published at:</strong> {{ vacancy.published_at|default:"No date available" }}</p>
+        <p><strong>Area:</strong> {{ vacancy.area.name|default:"No area available" }}</p>
+        <p><strong>Salary:</strong>
+            {% if vacancy.salary %}
+                {{ vacancy.salary.from|default:"-" }} - {{ vacancy.salary.to|default:"-" }} {{ vacancy.salary.currency|default:"No currency available" }}
+            {% else %}
+                No salary available
+            {% endif %}
+        </p>
         <p><strong>Requirements:</strong></p>
-        <p>{{ vacancy.snippet.requirement|safe }}</p>
+        <p>{{ vacancy.snippet.requirement|default:"No requirements available"|safe }}</p>
         <p><strong>Responsibilities:</strong></p>
-        <p>{{ vacancy.snippet.responsibility|safe }}</p>
-        <p><strong>Experience:</strong> {{ vacancy.experience.name }}</p>
-        <p><strong>Employment:</strong> {{ vacancy.employment.name }}</p>
-        <p><strong>Schedule:</strong> {{ vacancy.schedule.name }}</p>
+        <p>{{ vacancy.snippet.responsibility|default:"No responsibilities available"|safe }}</p>
+        <p><strong>Experience:</strong> {{ vacancy.experience.name|default:"No experience available" }}</p>
+        <p><strong>Employment:</strong> {{ vacancy.employment.name|default:"No employment available" }}</p>
+        <p><strong>Schedule:</strong> {{ vacancy.schedule.name|default:"No schedule available" }}</p>
         <a href="{{ vacancy.alternate_url }}" class="btn btn-primary" target="_blank">Apply Now</a>
 
         <!-- Display requirements -->
