@@ -16,7 +16,7 @@
         <ul>
             {% for vacancy in vacancies %}
                 <li>
-                    <a href="{% url 'vacancy_detail' vacancy.id %}">{{ vacancy.name }}</a>
+                    <a href="{% url 'vacancy_detail' vacancy.id %}">{{ vacancy.title }}</a>
                 </li>
             {% endfor %}
         </ul>
