@@ -4,7 +4,8 @@ from .models import Vacancy
 import requests
 from datetime import datetime, timedelta
 from django.shortcuts import render, get_object_or_404
-
+from django.shortcuts import render
+from .models import Vacancy
 
 def search_vacancies(request):
     form = VacancyFilterForm(request.GET or None)
@@ -75,6 +76,7 @@ def search_vacancies(request):
             print(f"Error fetching vacancies. Status code: {response.status_code}")
 
     return render(request, 'vacancies/search_vacancies.html', {'form': form, 'vacancies': vacancies})
+
 
 
 
