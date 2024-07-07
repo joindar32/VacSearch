@@ -1,11 +1,25 @@
-FROM python:3.10
+# Используем базовый образ с нужной версией Python
+FROM python:3.8
 
+# Устанавливаем переменные окружения для PostgreSQL
+ENV POSTGRES_DB=your_database_name
+ENV POSTGRES_USER=your_username
+ENV POSTGRES_PASSWORD=your_password
+
+# Устанавливаем рабочую директорию в контейнере
 WORKDIR /app
 
-COPY . /app
+# Копируем зависимости (requirements.txt должен быть в текущей директории)
+COPY requirements.txt .
 
-RUN pip install --upgrade pip
-
+# Устанавливаем зависимости
 RUN pip install -r requirements.txt
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Копируем остальные файлы приложения в контейнер
+COPY . .
+
+# Устанавливаем PostgreSQL (сервер)
+RUN apt-get update && apt-get install -y postgresql
+
+# Команда для запуска веб-приложения (PostgreSQL будет управляться через Docker Compose)
+CMD ["python", "app.py"]

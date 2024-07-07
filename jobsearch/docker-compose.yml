@@ -1,19 +1,29 @@
-version: '3.9'
+version: '3'
 
 services:
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-
   db:
-    image: postgres
+    image: postgres:13  # Используем версию PostgreSQL 13
+    container_name: db
     environment:
       POSTGRES_DB: hhdb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: c_j107356
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: web
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:c_j107356@db:5432/hhdb
+
+volumes:
+  postgres_data:
+    driver: local

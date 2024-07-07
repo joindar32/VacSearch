@@ -16,17 +16,13 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-rdeb_=d!8i7#cmoaljak010sf*)(nrom5o6*zo^s++xf7+j3_s'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -71,26 +67,40 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'jobsearch.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # settings.py
 
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Database
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'hhdb'),
-        'USER': os.getenv('DB_USER', 'postgres'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'c_j107356'),
-        'HOST': os.getenv('DB_HOST', 'db'),
-        'PORT': '5432',
+        'NAME': 'hhdb',
+        'USER': 'postgres',
+        'PASSWORD': 'c_j107356',
+        'HOST': 'db',  # Имя сервиса контейнера базы данных в Docker Compose
+        'PORT': '5432',  # Порт, на котором запущен PostgreSQL
     }
 }
 
+# Настройки другие (DEBUG, ALLOWED_HOSTS и т.д.)
+# ...
+# settings.py
 
+
+ALLOWED_HOSTS = ['your_domain.com', 'localhost', '127.0.0.1', '[::1]']
+
+# Переменные окружения
+
+
+
+STATIC_ROOT = '/code/static/'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -110,7 +120,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -121,7 +130,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

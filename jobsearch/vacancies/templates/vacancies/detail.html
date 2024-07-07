@@ -1,44 +1,30 @@
+<!-- vacancy_detail.html -->
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Vacancy Detail</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Ваши стили CSS или подключение Bootstrap здесь -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
-        <h1 class="my-4">{{ vacancy.title|default:"No title available" }}</h1>
-        <p><strong>Company:</strong> {{ vacancy.company|default:"No company available" }}</p>
-        <p><strong>Published at:</strong> {{ vacancy.published_at|date:"d M Y H:i"|default:"No date available" }}</p>
-        <p><strong>Area:</strong> {{ vacancy.area|default:"No area available" }}</p>
-        <p><strong>Salary:</strong>
-            {% if vacancy.salary_from and vacancy.salary_to %}
-                {{ vacancy.salary_from }} - {{ vacancy.salary_to }}
-            {% else %}
-                No salary available
-            {% endif %}
-        </p>
-
+        <h1>{{ vacancy.title }}</h1>
+        <p><strong>Company:</strong> {{ vacancy.company }}</p>
+        <p><strong>Published:</strong> {{ vacancy.published_at }}</p>
+        <p><strong>Area:</strong> {{ vacancy.area }}</p>
+        <p><strong>Salary:</strong> {% if vacancy.salary_from %}{{ vacancy.salary_from }}{% endif %}
+            {% if vacancy.salary_to %} - {{ vacancy.salary_to }}{% endif %}</p>
         <p><strong>Requirements:</strong></p>
-        <p>{{ vacancy.requirements|default:"No requirements available"|safe }}</p>
+        <p>{{ vacancy.requirements }}</p>
         <p><strong>Responsibilities:</strong></p>
-        <p>{{ vacancy.responsibilities|default:"No responsibilities available"|safe }}</p>
-        <p><strong>Experience:</strong> {{ vacancy.experience|default:"No experience available" }}</p>
-        <p><strong>Employment:</strong> {{ vacancy.employment|default:"No employment available" }}</p>
-        <p><strong>Schedule:</strong> {{ vacancy.schedule|default:"No schedule available" }}</p>
-
-        <div>
-            <h2>Description:</h2>
-            <ul>
-                {% for item in vacancy_description %}
-                    {% if item %}
-                        <li>{{ item|safe }}</li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
+        <p>{{ vacancy.responsibilities }}</p>
+        <p><strong>Experience:</strong> {{ vacancy.experience }}</p>
+        <p><strong>Employment:</strong> {{ vacancy.employment }}</p>
+        <p><strong>Schedule:</strong> {{ vacancy.schedule }}</p>
+        <p><strong>Description:</strong></p>
+        <p>{{ vacancy.description }}</p>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
